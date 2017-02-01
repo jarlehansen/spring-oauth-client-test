@@ -39,6 +39,9 @@ public class OAuthRequest {
         resourceDetails.setGrantType("password");
 
         OAuth2RestTemplate restTemplate = new OAuth2RestTemplate(resourceDetails);
+        log.info("Access token: {}", restTemplate.getAccessToken().getValue());
+        log.info("Refresh token: {}", restTemplate.getAccessToken().getRefreshToken().getValue());
+
         ResponseEntity<String> response = restTemplate.getForEntity(requestUrl, String.class);
         if (response.getStatusCode() == HttpStatus.OK) {
             return response.getBody();
